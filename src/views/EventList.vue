@@ -10,49 +10,26 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import EventCard from "@/components/EventCard.vue"; // @ is an alias to /src
+import EventServer from "@/services/eventServer";
+import { eventItem } from "@/types";
 
 export default defineComponent({
   name: "HomeView",
   components: {
     EventCard,
   },
+  created() {
+    EventServer.getEvents()
+      .then((res) => {
+        this.events = res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   data() {
     return {
-      events: [
-        {
-          id: 5928101,
-          category: "animal welfare",
-          title: "Cat Adoption day",
-          description: "find your new feline friend in this event.",
-          location: "meon town",
-          date: "2022-07-07",
-          time: "12:00",
-          petAllowed: true,
-          organizer: "james wange",
-        },
-        {
-          id: 5928102,
-          category: "luasts sdrnw",
-          title: "cow Adoption day",
-          description: "find your new feline friend in this event.",
-          location: "meon town",
-          date: "2022-01-14",
-          time: "13:00",
-          petAllowed: false,
-          organizer: "Kelly ten",
-        },
-        {
-          id: 5928103,
-          category: "commnt pee",
-          title: "gose Adoption day",
-          description: "find your new feline friend in this event.",
-          location: "meon town",
-          date: "2022-03-02",
-          time: "08:00",
-          petAllowed: true,
-          organizer: "james wange",
-        },
-      ],
+      events: [] as eventItem[],
     };
   },
 });
