@@ -1,17 +1,44 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import EventList from "@/views/EventList.vue";
-import EventDetails from "@/views/EventDetails.vue";
+import EventDetails from "@/views/event/Details.vue";
+import EventLayout from "@/views/event/Layout.vue";
+import EventEdit from "@/views/event/Edit.vue";
+import EventRegister from "@/views/event/Register.vue";
+import NotFound from "@/views/NotFound.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "EventList",
     component: EventList,
+    props: (route) => ({ page: route.query.page || 1 }),
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound,
   },
   {
     path: "/event/:id",
-    name: "EventDetails",
+    name: "EventLayout",
     props: true,
-    component: EventDetails,
+    component: EventLayout,
+    children: [
+      {
+        path: "",
+        name: "EventDetails",
+        component: EventDetails,
+      },
+      {
+        path: "EventEdit",
+        name: "EventEdit",
+        component: EventEdit,
+      },
+      {
+        path: "register",
+        name: "EventRegister",
+        component: EventRegister,
+      },
+    ],
   },
   {
     path: "/about",

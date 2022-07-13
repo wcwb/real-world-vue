@@ -7,8 +7,13 @@
       <h1 class="m-2 text-3xl font-semibold text-gray-800 capitalize">
         {{ event.title }}
       </h1>
-      <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>
-      <p>{{ event.description }}</p>
+      <router-link :to="{ name: 'EventDetails' }">Details</router-link>
+      |
+      <router-link :to="{ name: 'EventRegister' }">Register</router-link>
+      |
+      <router-link :to="{ name: 'EventEdit' }">Edit</router-link>
+
+      <router-view :event="event" />
     </div>
   </div>
 </template>
@@ -18,6 +23,7 @@ import { defineComponent } from "vue";
 import { eventItem } from "@/types";
 import eventServer from "@/services/eventServer";
 export default defineComponent({
+  name: "EventLayout",
   props: ["id"],
   data() {
     return {

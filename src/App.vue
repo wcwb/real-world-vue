@@ -8,7 +8,7 @@
 </template>
 
 <style>
-a.router-link-active {
-  @apply text-blue-600 underline;
+a.router-link-exact-active {
+  @apply text-green-500 underline;
 }
 </style>
